@@ -15,11 +15,9 @@ class AuthController extends Controller
 			return back();
 		}
 
-		if (!($user = User::getFromTelegram($telegramUserData))) {
-			$user = User::createFromTelegram($telegramUserData);
-		}
+		$tgUser = TelegramUser::fromData($telegramUserData);
 
-		Auth::login($user, true);
+		Auth::login($tgUser->user, true);
 		$request->session()->regenerate();
 
 		return redirect()->intended('index');
