@@ -5,11 +5,11 @@ import { createRouter, createWebHashHistory} from 'vue-router';
 import App from './components/App.vue';
 import Home from './components/Home.vue';
 
-import Mona from './components/Mona.vue';
-import MonaCoocke from './components/MonaCoocke.vue';
-import MonaHoroscope from './components/MonaHoroscope.vue';
-import MonaMaginBall from './components/MonaMagicBall.vue';
-import MonaTaro from './components/MonaTaro.vue';
+import Mona from './components/Mona/Mona.vue';
+import MonaCoocke from './components/Mona/MonaCoocke.vue';
+import MonaHoroscope from './components/Mona/MonaHoroscope.vue';
+import MonaMaginBall from './components/Mona/MonaMagicBall.vue';
+import MonaTaro from './components/Mona/MonaTaro.vue';
 
 
 const routes = [
