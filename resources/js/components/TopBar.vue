@@ -5,11 +5,23 @@ import axios from 'axios';
 
 let user = ref(null);
 
+function onTelegramAuthTest() {
+	onTelegramAuth({
+		id: 123,
+		first_name: 'Ivan',
+		last_name: 'Ivanov',
+		username: 'superUserName',
+		photo_url: 'https://placeholder.co/50x50',
+		auth_date: 321,
+		hash: 'qwerty'
+	});
+}
+
 function onTelegramAuth(userDataFromTelegram) {
 	axios.get('/sanctum/csrf-cookie').then(response => {
 		axios.post('/api/login', userDataFromTelegram)
-			.json(response => {
-				user.value = response
+			.then(response => {
+				user.value = response.data;
 			})
 	});
 }
@@ -18,14 +30,25 @@ function onTelegramAuth(userDataFromTelegram) {
 
 <template>
 	<div class="topBar">
-		<div class="user">
-			<img class="avatar" :src="user ? user.photo_url : 'https://placehold.co/50x50'" alt="user avatar">
-			<span class="name">{{ user ? user.first_name+' '+user.last_name : 'Anonimus'}}</span>
+		<button v-if="!user" class="auth" @click="onTelegramAuthTest">Login</button>
+		<div v-else class="user">
+			<img class="avatar" :src="user.photo_url" alt="user avatar">
+			<span class="name">{{user.first_name+' '+user.last_name}}</span>
 		</div>
 	</div>
 </template>
 
 <style>
+	.auth {
+		padding: 5px 25px;
+		height: 50px;
+		color: #fff;
+		font-size: 1.5rem;
+		border: none;
+		border-radius: 25px;
+		background-color: DodgerBlue;
+		box-shadow: 1px 1px 5px 1px #5e5e5e;
+	}
 	.topBar {
 		display: flex;
 		justify-content: end;

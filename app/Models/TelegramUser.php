@@ -14,6 +14,8 @@ class TelegramUser extends Model
 
 	public static function fromData($telegramUserData): TelegramUser {
 		// method accept data array from telegram
+		$telegramUserData = $telegramUserData->toArray();
+		dd($telegramUserData);
 		if (!($tgUser = self::where('id', $telegramUserData['id']))) {
 			$user = User::create([
 				'username' => $telegramUserData['username'].'_'.time(),
